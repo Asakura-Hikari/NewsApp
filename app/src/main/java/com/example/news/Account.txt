@@ -1,2 +1,2 @@
-U ThisisaUser 123456
-A ThisisAdmin 123456
+UThisisaUser 123456
+AThisisAdmin 123456

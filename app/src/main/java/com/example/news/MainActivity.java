@@ -7,6 +7,7 @@ import android.widget.EditText;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             String str;
             while ((str = in.readLine()) != null) {
                 String[] user = str.split(" ");
-                if (user[0].charAt(0)=='U'&&user[0].equals(inputAcc) && user[1].equals(inputPwd)){
+                if (user[0].charAt(0)=='U'&& user[0].equals(inputAcc) && user[1].equals(inputPwd)){
                     check = 1;
                 }else if (user[0].charAt(0)=='A'&&user[0].equals(inputAcc) && user[1].equals(inputPwd)){
                     check = 2;
@@ -39,7 +40,31 @@ public class MainActivity extends AppCompatActivity {
             }
         }catch (IOException ignored){
         }
-
         return check;
+    }
+
+    //注册功能实现
+    private boolean register(){
+        EditText userName = (EditText)findViewById();
+        EditText password = (EditText)findViewById();
+        boolean ckeck = true; //返回true则注册成功，返回false则注册失败。
+
+        String inputAcc = userName.getText().toString();
+        String inputPwd = password.getText().toString();
+
+        if (inputAcc.charAt(0)!='U'){
+            ckeck = false;
+        }else {
+            String acc = "\n"+inputAcc+" "+inputPwd;
+            try {
+                FileWriter writer = new FileWriter("Account.txt", true);
+                writer.write(acc);
+                writer.close();
+            } catch (IOException e) {
+                ckeck = false;
+                e.printStackTrace();
+            }
+        }
+        return ckeck;
     }
 }
